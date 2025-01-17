@@ -9,9 +9,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import hr.ferit.jurajbirovic.newsheet.ui.theme.NewSheetTheme
-/*import hr.ferit.jurajbirovic.newsheet.ui.CharacterCreationScreen*/
+import hr.ferit.jurajbirovic.newsheet.ui.CharacterCreationScreen
 import hr.ferit.jurajbirovic.newsheet.viewmodel.CharacterViewModel
-/*import androidx.lifecycle.viewmodel.compose.viewModel*/
+import androidx.lifecycle.viewmodel.compose.viewModel
 import hr.ferit.jurajbirovic.newsheet.ui.theme.NewSheetTheme
 
 class MainActivity : ComponentActivity() {
