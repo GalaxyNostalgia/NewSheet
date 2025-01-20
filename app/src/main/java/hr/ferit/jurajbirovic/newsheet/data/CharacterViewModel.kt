@@ -1,13 +1,11 @@
 package hr.ferit.jurajbirovic.newsheet.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import hr.ferit.jurajbirovic.newsheet.data.Character
 import com.google.firebase.firestore.FirebaseFirestore
 import hr.ferit.jurajbirovic.newsheet.data.Stats
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 class CharacterViewModel : ViewModel() {
 
@@ -19,7 +17,7 @@ class CharacterViewModel : ViewModel() {
     var currentCharacter = MutableStateFlow(Character(stats = Stats()))
         private set
 
-    fun saveCharacter() {
+    fun saveCharacter(updatedCharacter: Character) {
         val character = currentCharacter.value
         val newCharacterRef = db.collection("characters").document()
         val characterWithId = character.copy(id = newCharacterRef.id)
