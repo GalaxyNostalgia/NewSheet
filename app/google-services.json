@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "85265229366",
+    "project_id": "newsheet-a47d4",
+    "storage_bucket": "newsheet-a47d4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85265229366:android:f96462566057fa63789a97",
+        "android_client_info": {
+          "package_name": "hr.ferit.jurajbirovic.newsheet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcNonMMvNyRqXC6E0Bb4D_dh4kLyylM0I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
