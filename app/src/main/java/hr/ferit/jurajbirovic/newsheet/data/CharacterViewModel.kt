@@ -1,40 +1,42 @@
 package hr.ferit.jurajbirovic.newsheet.viewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.google.firebase.firestore.FirebaseFirestore
 import hr.ferit.jurajbirovic.newsheet.data.Character
 import hr.ferit.jurajbirovic.newsheet.data.Stats
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 
 class CharacterViewModel : ViewModel() {
-    private val db = FirebaseFirestore.getInstance()
     private val _characterList = MutableStateFlow<List<Character>>(emptyList())
-    val characterList: StateFlow<List<Character>> = _characterList
-    val currentCharacter = MutableStateFlow(Character("", "", "", "", "", "", "", Stats(0, 0, 0)))
+    val characterList: StateFlow<List<Character>> get() = _characterList
 
     init {
-        loadCharacters()
+        // Add sample characters
+        val sampleCharacters = listOf(
+            Character(id = "1", name = "Aragorn", title = "Ranger", sex = "Male", race = "Human", characterClass = "Warrior", lore = "A skilled ranger and warrior.", stats = Stats(10, 8, 7)),
+            Character(id = "2", name = "Legolas", title = "Archer", sex = "Male", race = "Elf", characterClass = "Archer", lore = "An elf with unmatched archery skills.", stats = Stats(7, 5, 10)),
+            Character(id = "3", name = "Gandalf", title = "Wizard", sex = "Male", race = "Maia", characterClass = "Wizard", lore = "A powerful wizard and leader.", stats = Stats(6, 6, 9))
+        )
+        _characterList.value = sampleCharacters
     }
 
-    fun saveCharacter() {
-        val character = currentCharacter.value
-        db.collection("characters").document(character.id).set(character)
+    fun addCharacter(character: Character) {
+        val updatedList = _characterList.value.toMutableList()
+        updatedList.add(character)
+        _characterList.value = updatedList
     }
 
-    fun loadCharacters() {
-        db.collection("characters").get().addOnSuccessListener { result ->
-            val characters = result.map { document ->
-                document.toObject(Character::class.java)
-            }
-            _characterList.value = characters
+    fun saveCharacter(updatedCharacter: Character) {
+        val updatedList = _characterList.value.map {
+            if (it.id == updatedCharacter.id) updatedCharacter else it
         }
+        _characterList.value = updatedList
     }
 
     fun deleteCharacter(characterId: String) {
-        db.collection("characters").document(characterId).delete()
-        loadCharacters()
+        val updatedList = _characterList.value.filter { it.id != characterId }
+        _characterList.value = updatedList
     }
+
 }
+
