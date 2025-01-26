@@ -1,18 +1,18 @@
 package hr.ferit.jurajbirovic.newsheet.data
 
 data class Character(
-    var id: String = "",
-    var name: String = "",
-    var title: String = "",
-    var sex: String = "",
-    var race: String = "",
-    var characterClass: String = "",
-    var lore: String = "",
-    var stats: Stats = Stats()
+    val id: String = "",
+    val name: String = "",
+    val title: String = "",
+    val sex: String = "",
+    val race: String = "",
+    val characterClass: String = "",
+    val lore: String = "",
+    val stats: Stats = Stats()
 )
 
 data class Stats(
-    var strength: Int = 0,
-    var defense: Int = 0,
-    var agility: Int = 0
+    val strength: Int = 0,
+    val defense: Int = 0,
+    val agility: Int = 0
 )

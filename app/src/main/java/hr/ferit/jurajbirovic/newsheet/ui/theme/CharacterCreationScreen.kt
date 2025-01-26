@@ -44,18 +44,17 @@ fun CharacterCreationScreen(
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
             Button(onClick = {
                 val newCharacter = Character(
-                    id = System.currentTimeMillis().toString(),
                     name = name.value,
                     title = title.value,
                     sex = sex.value,
                     race = race.value,
                     characterClass = characterClass.value,
                     lore = lore.value,
-                    stats = Stats(strength = strength.value, defense = defense.value, agility = agility.value)
+                    stats = Stats(strength.value, defense.value, agility.value)
                 )
                 characterViewModel.addCharacter(newCharacter)
-                onSave()
-            }, modifier = Modifier.weight(1f)) {
+                onSave() // Navigate back to the list screen
+            }) {
                 Text("Save")
             }
 

@@ -14,19 +14,30 @@ class CharacterViewModel : ViewModel() {
     }
 
     private fun fetchCharacters() {
-        db.collection("characters").get()
-            .addOnSuccessListener { result ->
-                val characters = result.map { document ->
+        db.collection("characters").addSnapshotListener { snapshot, e ->
+            if (e != null) {
+                println("Error fetching characters: ${e.message}")
+                return@addSnapshotListener
+            }
+
+            if (snapshot != null) {
+                val characters = snapshot.map { document ->
                     document.toObject(Character::class.java)
                 }
                 _characterList.value = characters
             }
+        }
     }
 
     fun addCharacter(character: Character) {
-        db.collection("characters").add(character)
+        val docRef = db.collection("characters").document() // Generate a unique document ID
+        val characterWithId = character.copy(id = docRef.id) // Update character with the generated ID
+        docRef.set(characterWithId)
             .addOnSuccessListener {
-                fetchCharacters()
+                fetchCharacters() // Refresh the list after a successful save
+            }
+            .addOnFailureListener { e ->
+                println("Error adding character: ${e.message}")
             }
     }
 
