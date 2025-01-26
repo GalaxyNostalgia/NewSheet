@@ -46,5 +46,8 @@ class CharacterViewModel : ViewModel() {
             .addOnSuccessListener {
                 fetchCharacters()
             }
+            .addOnFailureListener { e ->
+                println("Error deleting character: ${e.message}")
+            }
     }
 }
