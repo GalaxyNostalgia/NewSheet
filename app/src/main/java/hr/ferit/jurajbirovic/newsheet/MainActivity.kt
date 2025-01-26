@@ -1,7 +1,9 @@
 package hr.ferit.jurajbirovic.newsheet
 
+import CharacterCreationScreen
 import CharacterDetailsScreen
 import CharacterListScreen
+import CharacterViewModel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,9 +15,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
-import hr.ferit.jurajbirovic.newsheet.ui.CharacterCreationScreen
 import hr.ferit.jurajbirovic.newsheet.ui.theme.NewSheetTheme
-import hr.ferit.jurajbirovic.newsheet.viewmodel.CharacterViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

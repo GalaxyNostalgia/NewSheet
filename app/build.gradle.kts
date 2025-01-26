@@ -2,7 +2,21 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
 }
+
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.google.gms:google-services:4.4.2")
+    }
+}
+
+apply(plugin = "com.google.gms.google-services")
+
 
 android {
     namespace = "hr.ferit.jurajbirovic.newsheet"
@@ -42,7 +56,6 @@ android {
 dependencies {
     implementation("com.google.firebase:firebase-firestore-ktx:24.9.1")
     implementation("com.google.firebase:firebase-analytics-ktx:21.2.0")
-    implementation("com.google.firebase:firebase-firestore:24.9.1")
     implementation("androidx.activity:activity-ktx:1.8.0")
     implementation("androidx.fragment:fragment-ktx:1.6.1")
     implementation("io.coil-kt:coil-compose:2.5.0")

@@ -1,20 +1,10 @@
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import hr.ferit.jurajbirovic.newsheet.data.Stats
-import hr.ferit.jurajbirovic.newsheet.viewmodel.CharacterViewModel
 import androidx.compose.runtime.collectAsState
+import hr.ferit.jurajbirovic.newsheet.data.Stats
 
 @Composable
 fun CharacterDetailsScreen(
@@ -47,39 +37,27 @@ fun CharacterDetailsScreen(
     ) {
         Text(text = "Character Details", style = MaterialTheme.typography.headlineLarge)
 
-        // Fields for character properties (similar to CharacterCreationScreen)
+        Text(text = "Name: ${name.value}", style = MaterialTheme.typography.bodyLarge)
+        Text(text = "Title: ${title.value}", style = MaterialTheme.typography.bodyLarge)
+        Text(text = "Sex: ${sex.value}", style = MaterialTheme.typography.bodyLarge)
+        Text(text = "Race: ${race.value}", style = MaterialTheme.typography.bodyLarge)
+        Text(text = "Class: ${characterClass.value}", style = MaterialTheme.typography.bodyLarge)
+        Text(text = "Lore: ${lore.value}", style = MaterialTheme.typography.bodyLarge)
+        Text(text = "Strength: ${strength.value}", style = MaterialTheme.typography.bodyLarge)
+        Text(text = "Defense: ${defense.value}", style = MaterialTheme.typography.bodyLarge)
+        Text(text = "Agility: ${agility.value}", style = MaterialTheme.typography.bodyLarge)
 
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(
-                onClick = {
-                    val updatedCharacter = character.copy(
-                        name = name.value,
-                        title = title.value,
-                        sex = sex.value,
-                        race = race.value,
-                        characterClass = characterClass.value,
-                        lore = lore.value,
-                        stats = Stats(
-                            strength = strength.value,
-                            defense = defense.value,
-                            agility = agility.value
-                        )
-                    )
-                    characterViewModel.saveCharacter(updatedCharacter)
-                    onBack()
-                }
-            ) {
-                Text("Save")
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+
+            Button(onClick = {
+                characterViewModel.deleteCharacter(characterId)
+                onBack()
+            }, colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)) {
+                Text("Delete")
             }
 
-            Button(
-                onClick = {
-                    characterViewModel.deleteCharacter(characterId)
-                    onBack()
-                },
-                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
-            ) {
-                Text("Delete")
+            Button(onClick = onBack) {
+                Text("Back")
             }
         }
     }
