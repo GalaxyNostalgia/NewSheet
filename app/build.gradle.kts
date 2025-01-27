@@ -10,7 +10,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.google.gms:google-services:4.4.2")
+        classpath(libs.google.services)
     }
 }
 
@@ -53,6 +53,11 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.androidx.material.icons.core)
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.navigation.animation)
     implementation(libs.firebase.firestore)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)

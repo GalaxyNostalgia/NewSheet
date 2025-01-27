@@ -1,10 +1,19 @@
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import hr.ferit.jurajbirovic.newsheet.data.Character
+import hr.ferit.jurajbirovic.newsheet.data.CharacterViewModel
 import hr.ferit.jurajbirovic.newsheet.data.Stats
+import kotlinx.coroutines.delay
 
 @Composable
 fun CharacterCreationScreen(
@@ -18,48 +27,126 @@ fun CharacterCreationScreen(
     val race = remember { mutableStateOf("") }
     val characterClass = remember { mutableStateOf("") }
     val lore = remember { mutableStateOf("") }
-    val strength = remember { mutableStateOf(0) }
-    val defense = remember { mutableStateOf(0) }
-    val agility = remember { mutableStateOf(0) }
+    val strength = remember { mutableIntStateOf(0) }
+    val defense = remember { mutableIntStateOf(0) }
+    val agility = remember { mutableIntStateOf(0) }
+    val visible = remember { mutableStateOf(false) }
+
+    LaunchedEffect(Unit) {
+        delay(300) // Delay to start the animation
+        visible.value = true
+    }
 
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Text(text = "Create Character", style = MaterialTheme.typography.headlineLarge)
+        Text(
+            text = "Create Character",
+            style = MaterialTheme.typography.headlineLarge.copy(
+                fontWeight = FontWeight.Bold,
+                fontSize = 24.sp
+            )
+        )
 
-        OutlinedTextField(value = name.value, onValueChange = { name.value = it }, label = { Text("Name") }, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(value = title.value, onValueChange = { title.value = it }, label = { Text("Title") }, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(value = sex.value, onValueChange = { sex.value = it }, label = { Text("Sex") }, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(value = race.value, onValueChange = { race.value = it }, label = { Text("Race") }, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(value = characterClass.value, onValueChange = { characterClass.value = it }, label = { Text("Class") }, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(value = lore.value, onValueChange = { lore.value = it }, label = { Text("Lore") }, modifier = Modifier.fillMaxWidth())
-
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            OutlinedTextField(value = strength.value.toString(), onValueChange = { strength.value = it.toIntOrNull() ?: 0 }, label = { Text("Strength") }, modifier = Modifier.weight(1f))
-            OutlinedTextField(value = defense.value.toString(), onValueChange = { defense.value = it.toIntOrNull() ?: 0 }, label = { Text("Defense") }, modifier = Modifier.weight(1f))
-            OutlinedTextField(value = agility.value.toString(), onValueChange = { agility.value = it.toIntOrNull() ?: 0 }, label = { Text("Agility") }, modifier = Modifier.weight(1f))
-        }
-
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Button(onClick = {
-                val newCharacter = Character(
-                    name = name.value,
-                    title = title.value,
-                    sex = sex.value,
-                    race = race.value,
-                    characterClass = characterClass.value,
-                    lore = lore.value,
-                    stats = Stats(strength.value, defense.value, agility.value)
+        AnimatedVisibility(
+            visible = visible.value,
+            enter = fadeIn() + slideInVertically(initialOffsetY = { it / 2 }),
+            exit = fadeOut() + slideOutVertically(targetOffsetY = { it / 2 })
+        ) {
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                OutlinedTextField(
+                    value = name.value,
+                    onValueChange = { name.value = it },
+                    label = { Text("Name") },
+                    modifier = Modifier.fillMaxWidth()
                 )
-                characterViewModel.addCharacter(newCharacter)
-                onSave() // Navigate back to the list screen
-            }) {
-                Text("Save")
-            }
+                OutlinedTextField(
+                    value = title.value,
+                    onValueChange = { title.value = it },
+                    label = { Text("Title") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                OutlinedTextField(
+                    value = sex.value,
+                    onValueChange = { sex.value = it },
+                    label = { Text("Sex") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                OutlinedTextField(
+                    value = race.value,
+                    onValueChange = { race.value = it },
+                    label = { Text("Race") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                OutlinedTextField(
+                    value = characterClass.value,
+                    onValueChange = { characterClass.value = it },
+                    label = { Text("Class") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                OutlinedTextField(
+                    value = lore.value,
+                    onValueChange = { lore.value = it },
+                    label = { Text("Lore") },
+                    modifier = Modifier.fillMaxWidth()
+                )
 
-            Button(onClick = onCancel, modifier = Modifier.weight(1f), colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)) {
-                Text("Cancel")
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    OutlinedTextField(
+                        value = strength.intValue.toString(),
+                        onValueChange = { strength.intValue = it.toIntOrNull() ?: 0 },
+                        label = { Text("Strength") },
+                        modifier = Modifier.weight(1f)
+                    )
+                    OutlinedTextField(
+                        value = defense.intValue.toString(),
+                        onValueChange = { defense.intValue = it.toIntOrNull() ?: 0 },
+                        label = { Text("Defense") },
+                        modifier = Modifier.weight(1f)
+                    )
+                    OutlinedTextField(
+                        value = agility.intValue.toString(),
+                        onValueChange = { agility.intValue = it.toIntOrNull() ?: 0 },
+                        label = { Text("Agility") },
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Button(
+                        onClick = {
+                            val newCharacter = Character(
+                                id = System.currentTimeMillis().toString(),
+                                name = name.value,
+                                title = title.value,
+                                sex = sex.value,
+                                race = race.value,
+                                characterClass = characterClass.value,
+                                lore = lore.value,
+                                stats = Stats(strength.intValue, defense.intValue, agility.intValue)
+                            )
+                            characterViewModel.addCharacter(newCharacter)
+                            onSave()
+                        },
+                        modifier = Modifier.weight(1f)
+                    ) {
+                        Text("Save")
+                    }
+
+                    Button(
+                        onClick = onCancel,
+                        modifier = Modifier.weight(1f),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.error)
+                    ) {
+                        Text("Cancel")
+                    }
+                }
             }
         }
     }

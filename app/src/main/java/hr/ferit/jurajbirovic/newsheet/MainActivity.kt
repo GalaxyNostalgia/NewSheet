@@ -1,9 +1,7 @@
 package hr.ferit.jurajbirovic.newsheet
 
 import CharacterCreationScreen
-import CharacterDetailsScreen
-import CharacterListScreen
-import CharacterViewModel
+import hr.ferit.jurajbirovic.newsheet.ui.theme.CharacterListScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +13,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.composable
+import hr.ferit.jurajbirovic.newsheet.data.CharacterViewModel
+import hr.ferit.jurajbirovic.newsheet.ui.theme.CharacterDetailsScreen
 import hr.ferit.jurajbirovic.newsheet.ui.theme.NewSheetTheme
 
 class MainActivity : ComponentActivity() {
@@ -67,8 +67,9 @@ fun AppNavigation(navController: NavHostController, characterViewModel: Characte
         composable("character_details/{characterId}") { backStackEntry ->
             val characterId = backStackEntry.arguments?.getString("characterId")
             if (characterId != null) {
+                val character = characterViewModel.getCharacterById(characterId)
                 CharacterDetailsScreen(
-                    characterId = characterId,
+                    character = character,
                     characterViewModel = characterViewModel,
                     onBack = { navController.popBackStack() }
                 )

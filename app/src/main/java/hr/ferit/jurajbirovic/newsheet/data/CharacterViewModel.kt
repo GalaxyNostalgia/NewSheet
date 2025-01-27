@@ -1,3 +1,5 @@
+package hr.ferit.jurajbirovic.newsheet.data
+
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -49,5 +51,9 @@ class CharacterViewModel : ViewModel() {
             .addOnFailureListener { e ->
                 println("Error deleting character: ${e.message}")
             }
+    }
+
+    fun getCharacterById(characterId: String): Character? {
+        return _characterList.value.find { it.id == characterId }
     }
 }

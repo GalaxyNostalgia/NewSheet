@@ -1,5 +1,6 @@
 package hr.ferit.jurajbirovic.newsheet.data
 
+
 data class Character(
     val id: String = "",
     val name: String = "",
