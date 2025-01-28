@@ -1,9 +1,14 @@
+package hr.ferit.jurajbirovic.newsheet.ui.theme
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.automirrored.filled.DirectionsRun
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -61,36 +66,42 @@ fun CharacterCreationScreen(
                     value = name.value,
                     onValueChange = { name.value = it },
                     label = { Text("Name") },
+                    leadingIcon = { Icon(Icons.Default.Person, contentDescription = "Name") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
                     value = title.value,
                     onValueChange = { title.value = it },
                     label = { Text("Title") },
+                    leadingIcon = { Icon(Icons.Default.Title, contentDescription = "Title") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
                     value = sex.value,
                     onValueChange = { sex.value = it },
                     label = { Text("Sex") },
+                    leadingIcon = { Icon(Icons.Default.Wc, contentDescription = "Sex") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
                     value = race.value,
                     onValueChange = { race.value = it },
                     label = { Text("Race") },
+                    leadingIcon = { Icon(Icons.Default.Flag, contentDescription = "Race") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
                     value = characterClass.value,
                     onValueChange = { characterClass.value = it },
                     label = { Text("Class") },
+                    leadingIcon = { Icon(Icons.Default.WorkspacePremium, contentDescription = "Class") },
                     modifier = Modifier.fillMaxWidth()
                 )
                 OutlinedTextField(
                     value = lore.value,
                     onValueChange = { lore.value = it },
                     label = { Text("Lore") },
+                    leadingIcon = { Icon(Icons.Default.Book, contentDescription = "Lore") },
                     modifier = Modifier.fillMaxWidth()
                 )
 
@@ -99,18 +110,21 @@ fun CharacterCreationScreen(
                         value = strength.intValue.toString(),
                         onValueChange = { strength.intValue = it.toIntOrNull() ?: 0 },
                         label = { Text("Strength") },
+                        leadingIcon = { Icon(Icons.Default.FitnessCenter, contentDescription = "Strength") },
                         modifier = Modifier.weight(1f)
                     )
                     OutlinedTextField(
                         value = defense.intValue.toString(),
                         onValueChange = { defense.intValue = it.toIntOrNull() ?: 0 },
                         label = { Text("Defense") },
+                        leadingIcon = { Icon(Icons.Default.Shield, contentDescription = "Defense") },
                         modifier = Modifier.weight(1f)
                     )
                     OutlinedTextField(
                         value = agility.intValue.toString(),
                         onValueChange = { agility.intValue = it.toIntOrNull() ?: 0 },
                         label = { Text("Agility") },
+                        leadingIcon = { Icon(Icons.AutoMirrored.Filled.DirectionsRun, contentDescription = "Agility") },
                         modifier = Modifier.weight(1f)
                     )
                 }

@@ -1,11 +1,13 @@
 package hr.ferit.jurajbirovic.newsheet.ui.theme
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.DirectionsRun
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.FitnessCenter
+import androidx.compose.material.icons.filled.Shield
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -29,7 +31,7 @@ fun CharacterListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddCharacter,
-                containerColor = MaterialTheme.colorScheme.primary // Use primary color
+                containerColor = MaterialTheme.colorScheme.primary
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Add Character")
             }
@@ -68,14 +70,26 @@ fun CharacterListScreen(
                                 .fillMaxWidth()
                                 .padding(vertical = 4.dp),
                             colors = CardDefaults.cardColors(
-                                containerColor = Color(0xFF0A0A0A)
-                            )
+                                containerColor = MaterialTheme.colorScheme.surface
+                            ),
+                            elevation = CardDefaults.cardElevation(4.dp)
                         ) {
-                            Row(modifier = Modifier.padding(16.dp)) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(40.dp)
-                                        .background(MaterialTheme.colorScheme.primary)
+                            Row(
+                                modifier = Modifier
+                                    .padding(16.dp)
+                                    .fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                val maxStatIcon = when {
+                                    character.stats.strength >= character.stats.defense && character.stats.strength >= character.stats.agility -> Icons.Default.FitnessCenter
+                                    character.stats.defense >= character.stats.strength && character.stats.defense >= character.stats.agility -> Icons.Default.Shield
+                                    else -> Icons.AutoMirrored.Filled.DirectionsRun
+                                }
+
+                                Icon(
+                                    imageVector = maxStatIcon,
+                                    contentDescription = "Character Attribute Icon",
+                                    modifier = Modifier.size(40.dp)
                                 )
 
                                 Spacer(modifier = Modifier.width(16.dp))
@@ -94,8 +108,11 @@ fun CharacterListScreen(
                                         )
                                     )
                                 }
+
+                                Spacer(modifier = Modifier.weight(1f))
                             }
                         }
+                        HorizontalDivider(thickness = 1.dp, color = Color.Gray)
                     }
                 }
             }

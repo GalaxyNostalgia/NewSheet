@@ -1,6 +1,6 @@
 package hr.ferit.jurajbirovic.newsheet
 
-import CharacterCreationScreen
+import hr.ferit.jurajbirovic.newsheet.ui.theme.CharacterCreationScreen
 import hr.ferit.jurajbirovic.newsheet.ui.theme.CharacterListScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
