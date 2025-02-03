@@ -38,7 +38,7 @@ fun CharacterCreationScreen(
     val visible = remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
-        delay(300) // Delay to start the animation
+        delay(300)
         visible.value = true
     }
 

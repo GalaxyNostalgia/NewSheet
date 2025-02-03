@@ -66,7 +66,7 @@ fun NewSheetTheme(content: @Composable () -> Unit) {
 
     SideEffect {
         systemUiController.setSystemBarsColor(
-            color = Color(0xFF191919), // Transparent system bars
+            color = Color(0xFF191919),
             darkIcons = useDarkIcons
         )
     }

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import hr.ferit.jurajbirovic.newsheet.data.Character
 
 class CharacterViewModel : ViewModel() {
     private val db = FirebaseFirestore.getInstance()
@@ -32,11 +31,11 @@ class CharacterViewModel : ViewModel() {
     }
 
     fun addCharacter(character: Character) {
-        val docRef = db.collection("characters").document() // Generate a unique document ID
-        val characterWithId = character.copy(id = docRef.id) // Update character with the generated ID
+        val docRef = db.collection("characters").document()
+        val characterWithId = character.copy(id = docRef.id)
         docRef.set(characterWithId)
             .addOnSuccessListener {
-                fetchCharacters() // Refresh the list after a successful save
+                fetchCharacters()
             }
             .addOnFailureListener { e ->
                 println("Error adding character: ${e.message}")

@@ -208,7 +208,7 @@ fun StatBox(label: String, value: Int) {
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontWeight = FontWeight.Medium,
                 fontSize = 20.sp,
-                color = Color.White // Set the color to white
+                color = Color.White
             )
         )
     }
